@@ -5,6 +5,8 @@ class Bridge {
   static const BasicMessageChannel _basicMessageChannel =
       BasicMessageChannel('BasicMessageChannel', StringCodec());
 
+  static const MethodChannel _methodChannel = MethodChannel('methodChannel');
+
   //使用BasicMessageChannel接收来自native的消息，并向native回复
   void reviceData() {
     _basicMessageChannel.setMessageHandler(_handlerMessage);
@@ -23,5 +25,23 @@ class Bridge {
     } on PlatformException catch (e) {
       print(e);
     }
+  }
+
+  //使用BasicMessageChannel接收来自native的消息，并向native回复
+  void reviceData2() {
+    _methodChannel.setMethodCallHandler(platformCallHandler);
+  }
+
+  Future<dynamic> platformCallHandler(MethodCall call) async {
+    switch (call.method) {
+      case "getName":
+        return "Hello from Flutter";
+        break;
+    }
+  }
+
+//使用BasicMessageChannel向native发送消息，并接收native的回复
+  Future<T> sendMessage2d<T>() async {
+    return _methodChannel.invokeMethod("getName");
   }
 }
