@@ -1,6 +1,7 @@
 package com.example.hybirdFlutter;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -44,13 +45,18 @@ public class HybirdFlutterActivity extends AppCompatActivity {
                 //第一个参数就是dart端发送过来的消息
                 reply.reply("basicMessageChannel收到消息");//可以通过reply回复消息
             }
+        });
 
-        });
-        basicMessageChannel.send("发送给dart端的消息", new BasicMessageChannel.Reply<String>() {
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void reply(@Nullable String s) {//来自dart的反馈
-                Log.e("fff", "---------reply==========" + s);
+            public void run() {
+                basicMessageChannel.send("发送给dart端的消息", new BasicMessageChannel.Reply<String>() {
+                    @Override
+                    public void reply(@Nullable String s) {//来自dart的反馈
+                        Log.e("fff", "---------reply==========" + s);
+                    }
+                });
             }
-        });
+        }, 5000);
     }
 }
