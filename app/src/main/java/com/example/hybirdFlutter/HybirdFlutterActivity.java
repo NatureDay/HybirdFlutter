@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.Window;
 
@@ -36,6 +37,7 @@ public class HybirdFlutterActivity extends AppCompatActivity {
 
     private void initBridge() {
         BasicMessageChannel basicMessageChannel = new BasicMessageChannel(mFlutterView, "BasicMessageChannel", StringCodec.INSTANCE);
+
         basicMessageChannel.setMessageHandler(new BasicMessageChannel.MessageHandler<String>() {
             @Override
             public void onMessage(@Nullable String s, @NonNull BasicMessageChannel.Reply<String> reply) {
@@ -47,7 +49,7 @@ public class HybirdFlutterActivity extends AppCompatActivity {
         basicMessageChannel.send("发送给dart端的消息", new BasicMessageChannel.Reply<String>() {
             @Override
             public void reply(@Nullable String s) {//来自dart的反馈
-
+                Log.e("fff", "---------reply==========" + s);
             }
         });
     }
