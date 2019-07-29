@@ -62,19 +62,23 @@ public class HybirdFlutterActivity extends AppCompatActivity {
         }, 5000);
 
 
-        MethodChannel methodChannel = new MethodChannel(mFlutterView,"methodChannel");
+        MethodChannel methodChannel = new MethodChannel(mFlutterView, "methodChannel");
         methodChannel.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
             @Override
             public void onMethodCall(@NonNull MethodCall methodCall, @NonNull MethodChannel.Result result) {
-                if (methodCall.method.equals("getName")){
+                if (methodCall.method.equals("getName")) {
                     result.success("aaa");
                 }
             }
         });
+    }
 
-
-
-
-
+    @Override
+    public void onBackPressed() {
+        if (mFlutterView != null) {
+            mFlutterView.popRoute();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
