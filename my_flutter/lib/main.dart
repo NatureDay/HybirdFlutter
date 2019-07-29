@@ -48,11 +48,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  Bridge _bridge = new Bridge();
+
   void _incrementCounter() {
-    Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (BuildContext context) => new SecondPage()));
 //    setState(() {
 //      // This call to setState tells the Flutter framework that something has
 //      // changed in this State, which causes it to rerun the build method below
@@ -61,6 +59,14 @@ class _MyHomePageState extends State<MyHomePage> {
 //      // called again, and so nothing would appear to happen.
 //      _counter++;
 //    });
+
+//    Navigator.push(
+//        context,
+//        new MaterialPageRoute(
+//            builder: (BuildContext context) => new SecondPage()));
+    _bridge.sendMessage2d().then((value) {
+      print("------666=====$value");
+    });
   }
 
   @override
@@ -118,6 +124,5 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    new Bridge().reviceData();
   }
 }

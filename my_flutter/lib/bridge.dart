@@ -7,6 +7,11 @@ class Bridge {
 
   static const MethodChannel _methodChannel = MethodChannel('methodChannel');
 
+  Bridge() {
+    reviceData();
+    reviceData2();
+  }
+
   //使用BasicMessageChannel接收来自native的消息，并向native回复
   void reviceData() {
     _basicMessageChannel.setMessageHandler(_handlerMessage);
