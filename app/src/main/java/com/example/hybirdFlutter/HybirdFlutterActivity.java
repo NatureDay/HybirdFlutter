@@ -62,12 +62,14 @@ public class HybirdFlutterActivity extends AppCompatActivity {
         }, 5000);
 
 
-        MethodChannel methodChannel = new MethodChannel(mFlutterView, "methodChannel");
+        MethodChannel methodChannel = new MethodChannel(mFlutterView, "NativeHttpRequest");
         methodChannel.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
             @Override
             public void onMethodCall(@NonNull MethodCall methodCall, @NonNull MethodChannel.Result result) {
                 if (methodCall.method.equals("getName")) {
                     result.success("aaa");
+                } else if (methodCall.method.equals("doHttpRequest")) {
+                    Log.e("fff", "--doHttpRequest arguments: " + methodCall.argument("method").getClass());
                 }
             }
         });

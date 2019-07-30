@@ -5,7 +5,8 @@ class Bridge {
   static const BasicMessageChannel _basicMessageChannel =
       BasicMessageChannel('BasicMessageChannel', StringCodec());
 
-  static const MethodChannel _methodChannel = MethodChannel('methodChannel');
+  static const MethodChannel _methodChannel =
+      MethodChannel('NativeHttpRequest');
 
   Bridge() {
     reviceData();
@@ -46,7 +47,10 @@ class Bridge {
   }
 
 //使用BasicMessageChannel向native发送消息，并接收native的回复
-  Future<T> sendMessage2d<T>() async {
-    return _methodChannel.invokeMethod("getName");
+  Future<String> sendMessage2d<T>() async {
+    Map<String, dynamic> arg = new Map();
+    arg["path"] = "login";
+    arg["method"] = 123;
+    return _methodChannel.invokeMethod<String>("doHttpRequest", arg);
   }
 }
